@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 const useGetTodo = () => {
-  const [todo,setTodo] =useState({});
+  const [todo,setTodo] =useState([]);
   const getTodo = async () => {
     try {
     const URL = "http://localhost:9000/api/v1/todo";
@@ -12,7 +12,8 @@ const useGetTodo = () => {
     };
     const res = await fetch(URL, OPTIONS);
     const data = await res.json();
-    setTodo(data);
+    console.log("hook",data.data);
+    setTodo(data.data);
     } catch (error) {
         console.error(error);
         
@@ -20,7 +21,7 @@ const useGetTodo = () => {
   };
   useEffect(()=>{
      getTodo();
-  },[]);
+  },[todo]);
   return todo;
 };
 export default useGetTodo;

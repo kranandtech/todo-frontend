@@ -1,11 +1,11 @@
-import { useEffect } from "react";
 import useGetTodo from "../hooks/useGetTodo";
+import TodoForm from "./TodoForm";
 
 const TodoList = ()=>{
-    const {data} = useGetTodo();
-   // console.log(data);
+    const data = useGetTodo();
     return(
         <div>
+            <TodoForm/>
             {data.map((elem)=>{
                 return(
                     <p key={elem._id}>{elem.title}</p>

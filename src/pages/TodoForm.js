@@ -1,52 +1,24 @@
-import { useEffect, useState } from "react";
-import TodoList from "./TodoList";
+import {  useState } from "react";
+import useCreateTodo from "../hooks/useCreateTodo";
 
 const TodoForm = ()=>{
-   const [todoElem,setTodoElem] = useState("");
-   const [todo,setTodo] = useState([]);
+  const {createTodo} = useCreateTodo();
+   const [title,setTitle] = useState("");
   
    const addElem = (e)=>{
-    setTodoElem(e.target.value);
+    setTitle(e.target.value);
    }
   const addTodo = ()=>{
-    setTodo([...todo,todoElem]);
-    setTodoElem("");
+    createTodo({title})
+    setTitle("");
   }
-  const removeTodo = (todoElem)=>{
-    const newTodo = todo.filter((elem)=>{
-        if(elem!== todoElem) return true;
-        return false;
-        
-    });
-    setTodo(newTodo);
-  }
-
-  
-
-  useEffect(() => {
-  
-    console.log("get item");
-    const storedTodos = JSON.parse(localStorage.getItem("TodoList"));
-    if (storedTodos) {
-      setTodo(storedTodos);
-      
-    }
-    
-  },[]);
-  
-  useEffect(() => {
-    console.log("set item");
-    localStorage.setItem('TodoList',JSON.stringify(todo))
-   }, [todo]);
-  
 
     return(
         <>
         <div>
-           <input onChange={addElem} value={todoElem}  type="text"  />
+           <input onChange={addElem} value={title}  type="text"  />
            <button onClick={addTodo}  >Add</button>
         </div>
-        <TodoList todo={todo} removeTodo={removeTodo}/>
         </>
     );
 }

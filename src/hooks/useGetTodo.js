@@ -5,9 +5,10 @@ const useGetTodo = () => {
     try {
     const URL = "http://localhost:9000/api/v1/todo";
     const OPTIONS = {
+      method: "GET",
       headers: {
         "content-type": "application/json",
-        "method": "GET",
+        
       },
     };
     const res = await fetch(URL, OPTIONS);
@@ -21,7 +22,7 @@ const useGetTodo = () => {
   };
   useEffect(()=>{
      getTodo();
-  },[todo]);
-  return todo;
+  },[]);
+  return {todo,getTodo};
 };
 export default useGetTodo;
